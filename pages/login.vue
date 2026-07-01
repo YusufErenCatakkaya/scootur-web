@@ -20,7 +20,7 @@
         </div>
 
         <div>
-          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">�?ifre</label>
+          <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Şifre</label>
           <input 
             type="password" 
             id="password" 
@@ -46,7 +46,7 @@
 
           <!-- <div class="text-sm">
             <a href="#" class="font-medium text-scootur hover:text-scootur-dark">
-              �?ifremi unuttum
+              Şifremi unuttum
             </a>
           </div> -->
         </div>

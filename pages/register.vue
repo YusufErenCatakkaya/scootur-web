@@ -36,12 +36,12 @@
               <input type="email" v-model="form.email" required class="input-field" placeholder="ornek@mail.com" />
             </div>
             <div>
-              <label class="block text-sm font-medium text-gray-700 mb-1">�?ifre Belirleyin</label>
-              <input type="password" v-model="form.password" required minlength="8" class="input-field" placeholder="�?ifreniz" />
+              <label class="block text-sm font-medium text-gray-700 mb-1">Şifre Belirleyin</label>
+              <input type="password" v-model="form.password" required minlength="8" class="input-field" placeholder="Şifreniz" />
             </div>
           </div>
           
-          <!-- �?ifre Güçlülük Kuralları -->
+          <!-- Şifre Güçlülük Kuralları -->
           <div class="mt-4 p-3 bg-gray-50 rounded-lg border border-gray-100 flex flex-wrap gap-x-4 gap-y-2">
             <div :class="['text-xs font-medium flex items-center gap-1', passwordRules.length ? 'text-green-600' : 'text-gray-500']">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">

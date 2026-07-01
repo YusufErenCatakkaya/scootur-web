@@ -70,8 +70,21 @@ export default defineEventHandler(async (event) => {
   const pdfDoc = await PDFDocument.create()
   pdfDoc.registerFontkit(fontkit)
 
-  const fontPath = path.resolve('./public/Roboto-Regular.ttf')
-  const fontBytes = fs.readFileSync(fontPath)
+  const host = getRequestHost(event)
+  const protocol = getRequestProtocol(event)
+  
+  // Use absolute URL to fetch the font from the static assets
+  const fontUrl = `${protocol}://${host}/Roboto-Regular.ttf`
+  let fontBytes
+  try {
+    const fontRes = await fetch(fontUrl)
+    if (!fontRes.ok) throw new Error('Font bulunamadı')
+    fontBytes = await fontRes.arrayBuffer()
+  } catch (err) {
+    // Fallback to local file system if fetch fails (e.g. during local dev edge cases)
+    fontBytes = fs.readFileSync(path.resolve('./public/Roboto-Regular.ttf'))
+  }
+  
   const customFont = await pdfDoc.embedFont(fontBytes)
 
   const page = pdfDoc.addPage([595.28, 841.89]) // A4
