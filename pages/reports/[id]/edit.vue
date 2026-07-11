@@ -202,11 +202,11 @@
               <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label class="block text-xs font-medium text-gray-700 mb-1">Ad Soyad</label>
-                  <input type="text" v-model="witness.name" class="input-field text-sm py-2" placeholder="Tanık Adı" />
+                  <input type="text" v-model="witness.name" @input="witness.name = maskName($event.target.value)" class="input-field text-sm py-2" placeholder="Tanık Adı" />
                 </div>
                 <div>
                   <label class="block text-xs font-medium text-gray-700 mb-1">Telefon</label>
-                  <input type="tel" v-model="witness.phone" class="input-field text-sm py-2" placeholder="05XX..." />
+                  <input type="tel" v-model="witness.phone" @input="witness.phone = maskPhone($event.target.value)" class="input-field text-sm py-2" placeholder="05XX..." />
                 </div>
                 <div>
                   <label class="block text-xs font-medium text-gray-700 mb-1">Adres</label>
