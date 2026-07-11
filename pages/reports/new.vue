@@ -66,7 +66,7 @@
               
               <div>
                 <label class="block text-xs font-medium text-gray-700 mb-1">Scooter Seri No (Varsa)</label>
-                <input type="text" v-model="form.formData.driverA_Plate" class="input-field uppercase text-sm py-2" placeholder="Örn: 12345 veya Plaka" />
+                <input type="text" v-model="form.formData.driverA_Plate" @input="form.formData.driverA_Plate = maskPlate($event.target.value)" class="input-field uppercase text-sm py-2" placeholder="Örn: 12345 veya Plaka" />
               </div>
               <div>
                 <label class="block text-xs font-medium text-gray-700 mb-1">Fatura Görseli (İsteğe Bağlı)</label>
@@ -99,11 +99,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                   <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">Adı Soyadı</label>
-                    <input type="text" v-model="form.formData.driverB_Name" class="input-field text-sm py-1.5" />
+                    <input type="text" v-model="form.formData.driverB_Name" @input="form.formData.driverB_Name = maskName($event.target.value)" class="input-field text-sm py-1.5" />
                   </div>
                   <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">T.C. Kimlik No</label>
-                    <input type="text" v-model="form.formData.driverB_TcNo" maxlength="11" class="input-field text-sm py-1.5" />
+                    <input type="text" v-model="form.formData.driverB_TcNo" @input="form.formData.driverB_TcNo = maskTC($event.target.value)" maxlength="11" class="input-field text-sm py-1.5" />
                   </div>
                   <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">Sürücü Belge No. ve Sınıfı</label>
@@ -118,8 +118,8 @@
                     <input type="text" v-model="form.formData.driverB_Address" class="input-field text-sm py-1.5" />
                   </div>
                   <div class="md:col-span-2">
-                    <label class="block text-xs font-medium text-gray-700 mb-1">Tel No</label>
-                    <input type="tel" v-model="form.formData.driverB_Phone" class="input-field text-sm py-1.5" />
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Cep Telefonu</label>
+                    <input type="tel" v-model="form.formData.driverB_Phone" @input="form.formData.driverB_Phone = maskPhone($event.target.value)" class="input-field text-sm py-1.5" />
                   </div>
                 </div>
               </div>
@@ -134,10 +134,10 @@
                   </div>
                   <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">Plaka</label>
-                    <input type="text" v-model="form.formData.driverB_Plate" class="input-field text-sm py-1.5 uppercase" />
+                    <input type="text" v-model="form.formData.driverB_Plate" @input="form.formData.driverB_Plate = maskPlate($event.target.value)" class="input-field text-sm py-1.5 uppercase" />
                   </div>
                   <div>
-                    <label class="block text-xs font-medium text-gray-700 mb-1">Kullanım �?ekli</label>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Kullanım Şekli</label>
                     <input type="text" v-model="form.formData.driverB_Usage" class="input-field text-sm py-1.5" />
                   </div>
                 </div>
@@ -152,24 +152,24 @@
                     <input type="text" v-model="form.formData.driverB_InsuranceName" class="input-field text-sm py-1.5" />
                   </div>
                   <div>
-                    <label class="block text-xs font-medium text-gray-700 mb-1">T.C. Kimlik No</label>
-                    <input type="text" v-model="form.formData.driverB_InsuranceTcNo" class="input-field text-sm py-1.5" />
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Sigortalı T.C. / Vergi No</label>
+                    <input type="text" v-model="form.formData.driverB_InsuranceTcNo" @input="form.formData.driverB_InsuranceTcNo = maskTC($event.target.value)" class="input-field text-sm py-1.5" />
                   </div>
                   <div>
-                    <label class="block text-xs font-medium text-gray-700 mb-1">Sigorta �?irketinin Ünvanı</label>
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Sigorta Şirketinin Ünvanı</label>
                     <input type="text" v-model="form.formData.driverB_InsuranceCompany" class="input-field text-sm py-1.5" />
                   </div>
                   <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">Acente No</label>
-                    <input type="text" v-model="form.formData.driverB_AgencyNo" class="input-field text-sm py-1.5" />
+                    <input type="text" v-model="form.formData.driverB_AgencyNo" @input="form.formData.driverB_AgencyNo = maskNumeric($event.target.value)" class="input-field text-sm py-1.5" />
                   </div>
                   <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">Poliçe No</label>
-                    <input type="text" v-model="form.formData.driverB_PolicyNo" class="input-field text-sm py-1.5" />
+                    <input type="text" v-model="form.formData.driverB_PolicyNo" @input="form.formData.driverB_PolicyNo = maskNumeric($event.target.value)" class="input-field text-sm py-1.5" />
                   </div>
                   <div>
-                    <label class="block text-xs font-medium text-gray-700 mb-1">TRAMER Belge No</label>
-                    <input type="text" v-model="form.formData.driverB_TramerNo" class="input-field text-sm py-1.5" />
+                    <label class="block text-xs font-medium text-gray-700 mb-1">Tramer Belge No</label>
+                    <input type="text" v-model="form.formData.driverB_TramerNo" @input="form.formData.driverB_TramerNo = maskNumeric($event.target.value)" class="input-field text-sm py-1.5" />
                   </div>
                   <div>
                     <label class="block text-xs font-medium text-gray-700 mb-1">Poliçenin Başl.-Bitiş Tarihi</label>

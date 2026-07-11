@@ -3,10 +3,15 @@ import bcrypt from 'bcryptjs'
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
   
-  const { 
+  let { 
     firstName, lastName, birthDate, tcNo, phone, email, password,
     emergencyContactName, emergencyContactPhone, agreements
   } = body
+
+  // Sanitize inputs
+  if (tcNo) tcNo = String(tcNo).replace(/\D/g, '')
+  if (phone) phone = String(phone).replace(/\D/g, '')
+  if (email) email = String(email).trim().toLowerCase()
 
   // Validate agreements
   if (!agreements?.kvkk || !agreements?.user) {
@@ -22,17 +27,32 @@ export default defineEventHandler(async (event) => {
       statusMessage: 'Lütfen tüm zorunlu alanları doldurun.'
     })
   }
+  
+  if (tcNo.length !== 11) {
+    throw createError({ statusCode: 400, statusMessage: 'TC Kimlik No 11 haneli olmalıdır.' })
+  }
+
+  // Password Rules Validation
+  const hasUpperCase = /[A-Z]/.test(password)
+  const hasLowerCase = /[a-z]/.test(password)
+  const hasNumber = /[0-9]/.test(password)
+  if (password.length < 8 || !hasUpperCase || !hasLowerCase || !hasNumber) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Şifreniz kurallara uymuyor (En az 8 karakter, büyük harf, küçük harf ve rakam içermelidir).'
+    })
+  }
 
   const supabase = useSupabase()
 
   // Check if user exists
-  const { data: existingUser } = await supabase
+  const { data: existingUsers } = await supabase
     .from('User')
     .select('id')
     .or(`tcNo.eq.${tcNo},email.eq.${email},phone.eq.${phone}`)
-    .single()
+    .limit(1)
 
-  if (existingUser) {
+  if (existingUsers && existingUsers.length > 0) {
     throw createError({
       statusCode: 400,
       statusMessage: 'Bu TC Kimlik No, E-posta veya Telefon zaten kayıtlı.'

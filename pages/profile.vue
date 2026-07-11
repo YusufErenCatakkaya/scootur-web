@@ -142,11 +142,11 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Adınız</label>
-                  <input type="text" v-model="editForm.firstName" required class="input-field" />
+                  <input type="text" v-model="editForm.firstName" @input="editForm.firstName = maskName($event.target.value)" required class="input-field" />
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Soyadınız</label>
-                  <input type="text" v-model="editForm.lastName" required class="input-field" />
+                  <input type="text" v-model="editForm.lastName" @input="editForm.lastName = maskName($event.target.value)" required class="input-field" />
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Doğum Tarihi</label>
@@ -154,7 +154,7 @@
                 </div>
                 <div>
                   <label class="block text-sm font-medium text-gray-700 mb-1">Telefon</label>
-                  <input type="text" v-model="editForm.phone" required class="input-field" />
+                  <input type="text" v-model="editForm.phone" @input="editForm.phone = maskPhone($event.target.value)" required class="input-field" />
                 </div>
               </div>
             </div>
@@ -166,11 +166,11 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Yakınınızın Adı Soyadı</label>
-                    <input type="text" v-model="editForm.emergencyContactName" class="input-field bg-white" placeholder="Örn: Ayşe Yılmaz" />
+                    <input type="text" v-model="editForm.emergencyContactName" @input="editForm.emergencyContactName = maskName($event.target.value)" class="input-field bg-white" placeholder="Örn: Ayşe Yılmaz" />
                   </div>
                   <div>
                     <label class="block text-sm font-medium text-gray-700 mb-1">Yakınınızın Telefonu</label>
-                    <input type="tel" v-model="editForm.emergencyContactPhone" class="input-field bg-white" placeholder="05XX XXX XX XX" />
+                    <input type="tel" v-model="editForm.emergencyContactPhone" @input="editForm.emergencyContactPhone = maskPhone($event.target.value)" class="input-field bg-white" placeholder="05XX XXX XX XX" />
                   </div>
                 </div>
               </div>

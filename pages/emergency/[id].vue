@@ -49,9 +49,9 @@
             </svg>
             Acil Durumda Aranacak Kişi
           </p>
-          <p class="text-xl font-bold text-gray-900">{{ user.emergencyContactName || 'Belirtilmedi' }}</p>
-          <a v-if="user.emergencyContactPhone" :href="`tel:${user.emergencyContactPhone}`" class="inline-block mt-3 px-6 py-2 bg-green-500 text-white rounded-full font-bold shadow-md hover:bg-green-600 transition-colors">
-            Hemen Ara: {{ user.emergencyContactPhone }}
+          <p class="text-xl font-bold text-gray-900 break-words">{{ user.emergencyContactName || 'Belirtilmedi' }}</p>
+          <a v-if="user.emergencyContactPhone" :href="`tel:${user.emergencyContactPhone}`" class="inline-block mt-3 px-6 py-2 bg-green-500 text-white rounded-full font-bold shadow-md hover:bg-green-600 transition-colors break-words max-w-full text-center">
+            Hemen Ara:<br/>{{ user.emergencyContactPhone }}
           </a>
         </div>
 
@@ -60,9 +60,9 @@
             <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">Kan Grubu</p>
             <p class="text-4xl font-black text-red-600">{{ formatBloodGroup(user.bloodGroup) }}</p>
           </div>
-          <div class="bg-gradient-to-br from-white to-gray-50 p-5 rounded-2xl border border-gray-100 text-center flex flex-col justify-center shadow-sm">
+          <div class="bg-gradient-to-br from-white to-gray-50 p-5 rounded-2xl border border-gray-100 text-center flex flex-col justify-center shadow-sm overflow-hidden">
             <p class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-2">Alerji</p>
-            <p class="text-xl font-extrabold text-gray-800">{{ parsedAllergies }}</p>
+            <p class="text-xl font-extrabold text-gray-800 break-words max-w-full overflow-hidden">{{ parsedAllergies }}</p>
           </div>
         </div>
 
@@ -74,7 +74,7 @@
             </svg>
             Önemli Sağlık Notları
           </p>
-          <p class="text-gray-800 font-medium leading-relaxed relative z-10">
+          <p class="text-gray-800 font-medium leading-relaxed relative z-10 break-words max-w-full">
             {{ user.healthNotes || 'Kullanıcının belirttiği özel bir sağlık notu bulunmamaktadır.' }}
           </p>
         </div>

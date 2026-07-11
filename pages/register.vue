@@ -13,11 +13,11 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Adınız</label>
-              <input type="text" v-model="form.firstName" required class="input-field" placeholder="Örn: Ahmet" />
+              <input type="text" v-model="form.firstName" @input="form.firstName = maskName($event.target.value)" required class="input-field" placeholder="Örn: Ahmet" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Soyadınız</label>
-              <input type="text" v-model="form.lastName" required class="input-field" placeholder="Örn: Yılmaz" />
+              <input type="text" v-model="form.lastName" @input="form.lastName = maskName($event.target.value)" required class="input-field" placeholder="Örn: Yılmaz" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Doğum Tarihiniz</label>
@@ -25,11 +25,11 @@
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">T.C. Kimlik No</label>
-              <input type="text" v-model="form.tcNo" required pattern="^[0-9]{11}$" maxlength="11" class="input-field" placeholder="11 Haneli T.C. Kimlik No" />
+              <input type="text" v-model="form.tcNo" @input="form.tcNo = maskTC($event.target.value)" required pattern="^[0-9]{11}$" maxlength="11" class="input-field" placeholder="11 Haneli T.C. Kimlik No" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Telefon Numarası</label>
-              <input type="tel" v-model="form.phone" required pattern="^05[0-9]{9}$" maxlength="11" class="input-field" placeholder="05XX XXX XX XX" title="Lütfen başında sıfır olacak şekilde 11 haneli telefon numaranızı giriniz (Örn: 05321234567)" />
+              <input type="tel" v-model="form.phone" @input="form.phone = maskPhone($event.target.value)" required pattern="^05[0-9]{9}$" maxlength="11" class="input-field" placeholder="05XX XXX XX XX" title="Lütfen başında sıfır olacak şekilde 11 haneli telefon numaranızı giriniz (Örn: 05321234567)" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">E-posta Adresi</label>
@@ -80,11 +80,11 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Yakınınızın Adı Soyadı</label>
-              <input type="text" v-model="form.emergencyContactName" required class="input-field" placeholder="Örn: Ayşe Yılmaz" />
+              <input type="text" v-model="form.emergencyContactName" @input="form.emergencyContactName = maskName($event.target.value)" required class="input-field" placeholder="Örn: Ayşe Yılmaz" />
             </div>
             <div>
               <label class="block text-sm font-medium text-gray-700 mb-1">Yakınınızın Telefonu</label>
-              <input type="tel" v-model="form.emergencyContactPhone" required class="input-field" placeholder="05XX XXX XX XX" />
+              <input type="tel" v-model="form.emergencyContactPhone" @input="form.emergencyContactPhone = maskPhone($event.target.value)" required pattern="^05[0-9]{9}$" maxlength="11" class="input-field" placeholder="05XX XXX XX XX" />
             </div>
           </div>
         </div>
@@ -116,7 +116,8 @@
         <button 
           type="submit" 
           class="btn-primary w-full text-lg py-4 flex justify-center items-center gap-2"
-          :disabled="loading"
+          :disabled="loading || !isPasswordValid"
+          :class="{'opacity-50 cursor-not-allowed': !isPasswordValid}"
         >
           <svg v-if="loading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -196,6 +197,10 @@ const passwordRules = computed(() => {
     uppercase: /[A-Z]/.test(p) && /[a-z]/.test(p),
     number: /[0-9]/.test(p)
   }
+})
+
+const isPasswordValid = computed(() => {
+  return passwordRules.value.length && passwordRules.value.uppercase && passwordRules.value.number
 })
 
 const submitForm = async () => {
