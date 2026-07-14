@@ -14,7 +14,7 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Adınız Soyadınız</label>
-            <input type="text" v-model="form.name" required class="input-field" placeholder="Ad Soyad" />
+            <input type="text" v-model="form.name" @input="form.name = maskName($event.target.value)" required class="input-field" placeholder="Ad Soyad" />
           </div>
           <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">E-posta Adresiniz</label>
